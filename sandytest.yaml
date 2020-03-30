@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  version:      '1.0.0'
-  title:        'Sandy Weekend codes'
-  description:  'Api allows user to see existing information about recievers'
+  version: 1.0.0
+  title: Sandy Weekend codes
+  description: 'Api allows user to see existing information about recievers'
   termsOfService: https://shit.de
   contact:
     name: Sandy Kauer
@@ -13,7 +13,9 @@ info:
     url: hrrp://licence.foo.com
 servers:
   - url: https://dev.sandyshit.com/v1
-  - url:  https://dev.sandyshit.com/v1
+  - url:  https://dev.sandyshit.com/v2
+
+
 paths:
   /reciever:
     get:
@@ -41,61 +43,61 @@ paths:
           content:
             application/json:
               schema:
-                $ref:'#/components/schemas/Recievers'
+                $ref: '#/components/schemas/Recievers'
     post:
       description: Creates a new employee in database
       requestBody:
-        reuired: true
         content:
           application/json:
             schema:
-              type: object
-              $ref:'#/components/schemas/Reciever'
+              $ref: '#/components/schemas/Reciever'
       responses:
         200:
           description: Successfully created a new reciever
-  /recieverID:
+
+  /reciever/{id}:
     get:
       description: Information about one specific reciever
       parameters:
         - in: path
-          name: ID
+          name: id
           required: true
           schema:
             type: integer
             description:  ID of one specific reciever
-            Example: 54
+            example: 54
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/Reciever'
-            application/xml:
-               schema:
-                type: object
-                $ref: '#/components/schemas/Reciever'
-  components:
-    schemas:
-      Recievers:
-        description: Array of reciever s information
-        type: array
-        items:
-          $ref: '#components/schemas/Reciever'
-      Reciever:
-        description: Model containing reciever info
-          properties:
-            id:
-              type: integer //id of employee
-              example: 4
-            reciever name:
-              type: string
-              example: Ryan Kauer
-            reciever iban:
-              type: string
-              example: DE123456789012
-            reciever institut:
-              type: integer
-              example: Commerzbank (bearbeitet) 
+            # application/xml:
+            #    schema:
+            #     $ref: '#/components/schemas/Reciever'
+
+
+components:
+  schemas:
+    Recievers:
+      description: Array of reciever s information
+      type: array
+      items:
+        $ref: '#/components/schemas/Reciever'
+
+    Reciever:
+      description: Model containing reciever info
+      properties:
+        id:
+          type: number
+          example: 4
+        name:
+          type: string
+          example: Ryan Kauer
+        iban:
+          type: string
+          example: DE123456789012
+        institut:
+          type: number
+          example: Commerzbank (bearbeitet) 
