@@ -13,7 +13,7 @@ info:
     url: hrrp://licence.foo.com
 servers:
   - url: https://dev.sandyshit.com/v1
-  - url:  https://dev.sandyshit.com/v1
+  - url:  https://dev.sandyshit.com/v2
 
 
 paths:
@@ -47,38 +47,35 @@ paths:
     post:
       description: Creates a new employee in database
       requestBody:
-        reuired: true
         content:
           application/json:
             schema:
-              type: object
               $ref: '#/components/schemas/Reciever'
       responses:
         200:
           description: Successfully created a new reciever
-  /recieverID:
+
+  /reciever/{id}:
     get:
       description: Information about one specific reciever
       parameters:
         - in: path
-          name: ID
+          name: id
           required: true
           schema:
             type: integer
             description:  ID of one specific reciever
-            Example: 54
+            example: 54
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/Reciever'
-            application/xml:
-               schema:
-                type: object
-                $ref: '#/components/schemas/Reciever'
+            # application/xml:
+            #    schema:
+            #     $ref: '#/components/schemas/Reciever'
 
 
 components:
@@ -95,12 +92,12 @@ components:
         id:
           type: number
           example: 4
-        reciever name:
+        name:
           type: string
           example: Ryan Kauer
-        reciever iban:
+        iban:
           type: string
           example: DE123456789012
-        reciever institut:
+        institut:
           type: number
           example: Commerzbank (bearbeitet) 
