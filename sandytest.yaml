@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  version:      '1.0.0'
+  title:        'Sandy Weekend codes'
+  description:  'Api allows user to see existing information about recievers'
+  termsOfService: https://shit.de
+  contact:
+    name: Sandy Kauer
+    url: https://commerzbank.de
+    email: Sandykauer@me.com
+  license:
+    name: Sandym licens
+    url: hrrp://licence.foo.com
+servers:
+  - url: https://dev.sandyshit.com/v1
+  - url:  https://dev.sandyshit.com/v1
+paths:
+  /reciever:
+    get:
+      description: Information about existing recievers from the GPP-Database
+      parameters:
+        - name: bodyLimit
+          in: query
+          description: Amount of recievers returnes
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 15
+            example: 12
+        - name: pageLimit
+          in: query
+          description: Pages to return employees info
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 5
+            example: 2
+      responses:
+        200:
+          description: Successfull-response pull of reciever info
+          content:
+            application/json:
+              schema:
+                $ref:'#/components/schemas/Recievers'
+    post:
+      description: Creates a new employee in database
+      requestBody:
+        reuired: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref:'#/components/schemas/Reciever'
+      responses:
+        200:
+          description: Successfully created a new reciever
+  /recieverID:
+    get:
+      description: Information about one specific reciever
+      parameters:
+        - in: path
+          name: ID
+          required: true
+          schema:
+            type: integer
+            description:  ID of one specific reciever
+            Example: 54
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Reciever'
+            application/xml:
+               schema:
+                type: object
+                $ref: '#/components/schemas/Reciever'
+  components:
+    schemas:
+      Recievers:
+        description: Array of reciever s information
+        type: array
+        items:
+          $ref: '#components/schemas/Reciever'
+      Reciever:
+        description: Model containing reciever info
+          properties:
+            id:
+              type: integer //id of employee
+              example: 4
+            reciever name:
+              type: string
+              example: Ryan Kauer
+            reciever iban:
+              type: string
+              example: DE123456789012
+            reciever institut:
+              type: integer
+              example: Commerzbank (bearbeitet) 
